@@ -1,0 +1,1 @@
+cmd_/home/sahin/chardevice/kernel_thread.ko := ld -r  -m elf_x86_64  --build-id=sha1  -T scripts/module.lds -o /home/sahin/chardevice/kernel_thread.ko /home/sahin/chardevice/kernel_thread.o /home/sahin/chardevice/kernel_thread.mod.o;  true
