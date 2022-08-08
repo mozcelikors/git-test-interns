@@ -1,10 +1,5 @@
 #include <linux/module.h>
-#include <linux/kernel.h>
-#include <linux/init.h>
-#include <linux/kthread.h>
-#include <linux/sched.h>
 #include <linux/time.h>   // for using jiffies 
-#include <linux/timer.h>
 #include <linux/kdev_t.h>
 #include <linux/fs.h>
 #include <linux/cdev.h>
@@ -12,7 +7,6 @@
 #include <linux/slab.h>                 //kmalloc()
 #include <linux/uaccess.h>              //copy_to/from_user()
 #include <linux/kthread.h>             //kernel threads
-#include <linux/sched.h>               //task_struct 
 #include <linux/delay.h>
  
 #define mem_size        1024           //Memory Size

@@ -1,13 +1,3 @@
-/***************************************************************************//**
-*  \file       test_app.c
-*
-*  \details    Userspace application to test the Device driver
-*
-*  \author     EmbeTronicX
-*
-*  \Tested with Linux raspberrypi 5.10.27-v7l-embetronicx-custom+
-*
-*******************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,23 +5,19 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
 int8_t write_buf[1024];
 int8_t read_buf[1024];
-
 int main()
 {
         int fd;
         char option;
-        printf("*********************************\n");
-        printf("*******WWW.EmbeTronicX.com*******\n");
-
-        fd = open("/dev/etx_device", O_RDWR);
+        printf("kernel_app started\n");
+        
+        fd = open("/dev/sahin_device", O_RDWR);
         if(fd < 0) {
                 printf("Cannot open device file...\n");
                 return 0;
         }
-
         while(1) {
                 printf("****Please Enter the Option******\n");
                 printf("        1. Write               \n");
