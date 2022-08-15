@@ -85,7 +85,7 @@ TEST(UsbHotPlug, HotplugCallback_flags)
 	libusb_init(NULL);
 
 	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
-		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
+		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_ENUMERATE , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
 		LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback, NULL, &callback_handle);
 
 	ASSERT_EQ(LIBUSB_SUCCESS,rc);
@@ -99,11 +99,11 @@ TEST(UsbHotPlug, HotplugCallback_vendor_id)
 	libusb_init(NULL);
 
 	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
-		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_NO_FLAGS, LIBUSB_HOTPLUG_MATCH_ANY,
+		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , -2, LIBUSB_HOTPLUG_MATCH_ANY,
 		LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback, NULL, &callback_handle);
 
 
-	ASSERT_EQ(LIBUSB_SUCCESS,rc);
+	ASSERT_EQ(LIBUSB_ERROR_INVALID_PARAM  ,rc);
 }
 
 TEST(UsbHotPlug, HotplugCallback_product_id)
@@ -114,11 +114,11 @@ TEST(UsbHotPlug, HotplugCallback_product_id)
 	libusb_init(NULL);
 
 	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
-		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_NO_FLAGS,
+		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, -2,
 		LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback, NULL, &callback_handle);
 
 
-	ASSERT_EQ(LIBUSB_SUCCESS,rc);
+	ASSERT_EQ(LIBUSB_ERROR_INVALID_PARAM  ,rc);
 }
 
 
@@ -131,10 +131,10 @@ TEST(UsbHotPlug, HotplugCallback_dev_class)
 
 	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
 		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-		LIBUSB_HOTPLUG_NO_FLAGS, hotplug_callback, NULL, &callback_handle);
+		-2, hotplug_callback, NULL, &callback_handle);
 
 
-	ASSERT_EQ(LIBUSB_SUCCESS,rc);
+	ASSERT_EQ(LIBUSB_ERROR_INVALID_PARAM  ,rc);
 }
 
 TEST(UsbHotPlug, HotplugCallback_cb_fn)
@@ -150,33 +150,6 @@ TEST(UsbHotPlug, HotplugCallback_cb_fn)
 
 
 	ASSERT_EQ(LIBUSB_ERROR_INVALID_PARAM  ,rc);
-}
-
-TEST(UsbHotPlug, HotplugCallback_user_data)
-{
-
-  	libusb_hotplug_callback_handle callback_handle;
-	int rc;
-	libusb_init(NULL);
-
-	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
-		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-		LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback,NULL, &callback_handle);
-
-	ASSERT_EQ(0 ,rc);
-}
-
-TEST(UsbHotPlug, HotplugCallback_callback_handle)
-{
-
-	int rc;
-	libusb_init(NULL);
-
-	rc = libusb_hotplug_register_callback(NULL,static_cast<libusb_hotplug_event> (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED |
-		LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT), LIBUSB_HOTPLUG_NO_FLAGS , LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
-		LIBUSB_HOTPLUG_MATCH_ANY, hotplug_callback, NULL, NULL);
-
-	ASSERT_EQ(LIBUSB_SUCCESS,rc);
 }
 
 
