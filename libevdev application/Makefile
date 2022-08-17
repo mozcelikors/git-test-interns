@@ -2,14 +2,9 @@
 INCLUDE_FLAGS = -I/usr/include/libevdev-1.0
 LINKER_FLAGS = -levdev
 CC = gcc
+ 
+CFLAGS  = -march=native -g -Wall
 
-  # compiler flags:
-  #  -g    adds debugging information to the executable file
-  #  -Wall turns on most, but not all, compiler warnings
-  
- CFLAGS  = -march=native -g -Wall
-
- # the build target executable:
 TARGET = breadboard
 
   all:$(TARGET)
